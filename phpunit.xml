@@ -16,10 +16,10 @@
         </testsuite>
     </testsuites>
     <php>
-        <includePath>./modx.evo.custom/</includePath>
+        <includePath>./vendor/dmi3yy/modx.evo.custom/</includePath>
         <const name="MODX_BASE_PATH" value="./"/>
         <const name="MODX_SITE_URL" value="http://example.com/"/>
-        <const name="MODX_MANAGER_PATH" value="manager" />
+        <const name="MODX_MANAGER_PATH" value="manager/" />
         <server name="REQUEST_URI" value="/test?page=2"/>
     </php>
 </phpunit>

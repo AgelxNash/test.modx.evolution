@@ -16,12 +16,15 @@ abstract class ModxAbstract extends TestAbstract
 
         $this->modx->db = $this->mockDBAPI();
         $this->assertTrue($this->modx->db instanceof \DBAPI);
+
+        global $modx;
+        $modx = $this->modx;
     }
 
     protected function mockDBAPI()
     {
         $DBAPI = $this->getMockBuilder('DBAPI')
-            ->setMethods(array('query', 'makeArray', 'escape', 'getValue', 'select', 'getRecordCount', 'getRow'))
+            ->setMethods(array('query', 'makeArray', 'escape', 'getValue', 'select', 'getRecordCount', 'getRow', 'isResult'))
             ->getMock();
 
         $DBAPI->expects($this->any())
@@ -34,7 +37,7 @@ abstract class ModxAbstract extends TestAbstract
 
         $DBAPI->expects($this->any())
             ->method('getValue')
-            ->will($this->returnValue('db_value'));
+            ->will($this->returnValue(null));
 
         $DBAPI->expects($this->any())
             ->method('select')
@@ -47,6 +50,10 @@ abstract class ModxAbstract extends TestAbstract
         $DBAPI->expects($this->any())
             ->method('getRow')
             ->will($this->returnValue(array()));
+
+        $DBAPI->expects($this->any())
+            ->method('isResult')
+            ->will($this->returnValue(false));
 
         return $DBAPI;
     }
@@ -68,7 +75,7 @@ abstract class ModxAbstract extends TestAbstract
             'id'              => 1,
             'type'            => 'document',
             'contentType'     => 'text/html',
-            'pagetitle'       => 'New document',
+            'pagetitle'       => 'blank',
             'longtitle'       => '',
             'description'     => '',
             'alias'           => '',
@@ -102,7 +109,14 @@ abstract class ModxAbstract extends TestAbstract
             'privatemgr'      => 0,
             'content_dispo'   => 0,
             'hidemenu'        => 0,
-            'alias_visible'   => 1
+            'alias_visible'   => 1,
+            'tv' => array(
+                0 => 'tv', //name
+                1 => 'value',
+                2 => '',
+                3 => '',
+                4 => 'text' //input type
+            )
         );
         $modx->documentIdentifier = 1;
 
@@ -114,6 +128,7 @@ abstract class ModxAbstract extends TestAbstract
             'field_from_document_object' => 'pagetitle',
             'error_reporting'  => 0,
 
+            'blank' => 'message',
             'inside' => 'blank',
             'insideWithProps' => 'blank-with-props? &str=`line from snippet`'
         ), $config);
@@ -121,7 +136,8 @@ abstract class ModxAbstract extends TestAbstract
         $modx->chunkCache = array(
             'blank' => 'Test content',
             'inside' => 'blank',
-            'insideWithProps' => 'blank-with-props? &str=`line from snippet`'
+            'insideWithProps' => 'blank-with-props? &str=`line from snippet`',
+            'inside-snippet' => 'blank'
         );
 
         $modx->snippetCache = array(
@@ -131,11 +147,14 @@ abstract class ModxAbstract extends TestAbstract
             'blank-with-propsProps' => '&str=name parameter;text;end snippet',
 
             'inside' => 'return "blank";',
-            'insideWithProps' => 'return "blank-with-props? &str=`line from snippet`";'
+            'insideWithProps' => 'return "blank-with-props? &str=`line from snippet`";',
+
+            'into-chunk' => 'return "blank";',
         );
 
         $modx->placeholders = array(
             'test' => 'example content placeholder',
+            'blank' => 'placeholder text',
             'inside' => 'blank',
             'insideWithProps' => 'blank-with-props? &str=`line from snippet`'
         );

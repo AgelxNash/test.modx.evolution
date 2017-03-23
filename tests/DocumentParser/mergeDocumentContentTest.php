@@ -23,4 +23,15 @@ class mergeDocumentContentTest extends ModxAbstract {
         $filters = $this->method->invoke($this->modx, '[*#pagetitle*]');
         $this->assertEquals($this->modx->documentObject['pagetitle'], $filters);
     }
+    public function testTvExistSuccess()
+    {
+        $filters = $this->method->invoke($this->modx, '[*tv*]');
+        $this->assertEquals($this->modx->documentObject['tv'][1], $filters);
+    }
+
+    public function testTvNoExistsSuccess()
+    {
+        $filters = $this->method->invoke($this->modx, '[*iqw7e6576182bnzx*]');
+        $this->assertEquals("", $filters);
+    }
 }

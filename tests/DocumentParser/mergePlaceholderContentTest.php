@@ -20,16 +20,40 @@ class mergePlaceholderContentTest extends ModxAbstract {
         $this->assertEquals($this->modx->placeholders['test'], $filters);
     }
 
+    public function testNoExistsPlaceholderSuccess()
+    {
+        $filters = $this->method->invoke($this->modx, '[+q0919238iumlsnh7123+]');
+        $this->assertEquals('[+q0919238iumlsnh7123+]', $filters);
+    }
+
     public function testNameInConfigSuccess()
     {
         $filters = $this->method->invoke($this->modx, '[+[(test)]+]');
         $this->assertEquals($this->modx->placeholders[$this->modx->getConfig('test')], $filters);
     }
 
-    public function testNoExistsPlaceholderSuccess()
+    public function testNameInPlaceholderSuccess()
     {
-        $filters = $this->method->invoke($this->modx, '[+q0919238iumlsnh7123+]');
-        $this->assertEquals('[+q0919238iumlsnh7123+]', $filters);
+        $filters = $this->method->invoke($this->modx, '[+[+inside+]+]');
+        $this->assertEquals('[+blank+]', $filters);
+    }
+
+    public function testNameInSnippetSuccess()
+    {
+        $filters = $this->method->invoke($this->modx, '[+[[inside]]+]');
+        $this->assertEquals('[+[[inside]]+]', $filters);
+    }
+
+    public function testNameInChunkSuccess()
+    {
+        $filters = $this->method->invoke($this->modx, '[+{{inside}}+]');
+        $this->assertEquals('[+{{inside}}+]', $filters);
+    }
+
+    public function testNameInDocSuccess()
+    {
+        $filters = $this->method->invoke($this->modx, '[+[*inside*]+]');
+        $this->assertEquals('[+[*inside*]+]', $filters);
     }
 }
 

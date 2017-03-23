@@ -109,13 +109,13 @@ class evalSnippetsTest extends ModxAbstract {
 
     public function testSnippetInConfigSpaceSuccess()
     {
-        $filters = $this->method->invoke($this->modx, '[[ [(inside)] ]]');
+        $filters = $this->method->invoke($this->modx, '[[[(inside)] ]]');
         $this->assertEquals('', $filters);
     }
 
     public function testSnippetInConfigWithParamsSpaceSuccess()
     {
-        $filters = $this->method->invoke($this->modx, '[[ [(insideWithProps)] ]]');
+        $filters = $this->method->invoke($this->modx, '[[[(insideWithProps)] ]]');
         $this->assertEquals('', $filters);
     }
 
@@ -135,15 +135,29 @@ class evalSnippetsTest extends ModxAbstract {
 
     public function testSnippetInPlaceholderSpaceSuccess()
     {
-        $filters = $this->method->invoke($this->modx, '[[ [+inside+] ]]');
+        $filters = $this->method->invoke($this->modx, '[[[+inside+] ]]');
         $this->assertNotEquals('Test content', $filters);
         $this->assertEquals('', $filters);
     }
 
     public function testSnippetInPlaceholderWithParamsSpaceSuccess()
     {
-        $filters = $this->method->invoke($this->modx, '[[ [+insideWithProps+] ]]');
+        $filters = $this->method->invoke($this->modx, '[[[+insideWithProps+] ]]');
         $this->assertNotEquals('line from snippet', $filters);
+        $this->assertEquals('', $filters);
+    }
+
+    public function testSnippetInDocSuccess()
+    {
+        $filters = $this->method->invoke($this->modx, '[[[*pagetitle*]]]');
+        $this->assertNotEquals('blank', $filters);
+        $this->assertEquals(']', $filters);
+    }
+
+    public function testSnippetInDocSpaceSuccess()
+    {
+        $filters = $this->method->invoke($this->modx, '[[[*pagetitle*] ]]');
+        $this->assertNotEquals('blank', $filters);
         $this->assertEquals('', $filters);
     }
 }
