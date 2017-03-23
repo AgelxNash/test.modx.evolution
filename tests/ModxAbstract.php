@@ -93,12 +93,25 @@ abstract class ModxAbstract extends TestAbstract
             'alias_visible'   => 1
         );
         $modx->documentIdentifier = 1;
+
         $modx->config = array_merge(array(
             'manager_language' => 'russian-UTF8',
             'site_start'       => 1,
             'site_url'         => 'http://example.com/',
+            'test'             => 'pagetitle',
+            'error_reporting'  => 0,
         ), $config);
 
+        $modx->chunkCache = array(
+          'blank' => 'Test content',
+        );
+
+        $modx->snippetCache = array(
+            'blank' => 'return "end snippet";',
+
+            'blank-with-props' => 'return $str;',
+            'blank-with-propsProps' => '&str=name parameter;text;end snippet',
+        );
         return $modx;
     }
 }
