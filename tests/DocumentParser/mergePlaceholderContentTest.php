@@ -17,13 +17,19 @@ class mergePlaceholderContentTest extends ModxAbstract {
     public function testPlaceholderSuccess()
     {
         $filters = $this->method->invoke($this->modx, '[+test+]');
-        $this->assertEquals('[+test+]', $filters);
+        $this->assertEquals($this->modx->placeholders['test'], $filters);
     }
 
     public function testNameInConfigSuccess()
     {
         $filters = $this->method->invoke($this->modx, '[+[(test)]+]');
-        $this->assertEquals(sprintf('[+%s+]', $this->modx->getConfig('test')), $filters);
+        $this->assertEquals($this->modx->placeholders[$this->modx->getConfig('test')], $filters);
+    }
+
+    public function testNoExistsPlaceholderSuccess()
+    {
+        $filters = $this->method->invoke($this->modx, '[+q0919238iumlsnh7123+]');
+        $this->assertEquals('[+q0919238iumlsnh7123+]', $filters);
     }
 }
 

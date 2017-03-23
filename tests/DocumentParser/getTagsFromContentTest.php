@@ -49,5 +49,11 @@ class getTagsFromContentTest extends ModxAbstract {
         $filters = $this->method->invoke($this->modx, '[[a]] [[b]]', '[[', ']]');
         $this->assertEquals(array(array('[[a]]', '[[b]]'), array('a', 'b')), $filters);
     }
+
+    public function testOneSnippetWithParamsSuccess()
+    {
+        $filters = $this->method->invoke($this->modx, '[[a? &test=`qwe`]]', '[[', ']]');
+        $this->assertEquals(array(array('[[a? &test=`qwe`]]'), array('a? &test=`qwe`')), $filters);
+    }
 }
 

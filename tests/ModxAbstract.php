@@ -21,7 +21,7 @@ abstract class ModxAbstract extends TestAbstract
     protected function mockDBAPI()
     {
         $DBAPI = $this->getMockBuilder('DBAPI')
-            ->setMethods(array('query', 'makeArray', 'escape', 'getValue'))
+            ->setMethods(array('query', 'makeArray', 'escape', 'getValue', 'select', 'getRecordCount', 'getRow'))
             ->getMock();
 
         $DBAPI->expects($this->any())
@@ -35,6 +35,18 @@ abstract class ModxAbstract extends TestAbstract
         $DBAPI->expects($this->any())
             ->method('getValue')
             ->will($this->returnValue('db_value'));
+
+        $DBAPI->expects($this->any())
+            ->method('select')
+            ->will($this->returnValue(null));
+
+        $DBAPI->expects($this->any())
+            ->method('getRecordCount')
+            ->will($this->returnValue(0));
+
+        $DBAPI->expects($this->any())
+            ->method('getRow')
+            ->will($this->returnValue(array()));
 
         return $DBAPI;
     }
@@ -98,19 +110,34 @@ abstract class ModxAbstract extends TestAbstract
             'manager_language' => 'russian-UTF8',
             'site_start'       => 1,
             'site_url'         => 'http://example.com/',
-            'test'             => 'pagetitle',
+            'test'             => 'test',
+            'field_from_document_object' => 'pagetitle',
             'error_reporting'  => 0,
+
+            'inside' => 'blank',
+            'insideWithProps' => 'blank-with-props? &str=`line from snippet`'
         ), $config);
 
         $modx->chunkCache = array(
-          'blank' => 'Test content',
+            'blank' => 'Test content',
+            'inside' => 'blank',
+            'insideWithProps' => 'blank-with-props? &str=`line from snippet`'
         );
 
         $modx->snippetCache = array(
             'blank' => 'return "end snippet";',
 
-            'blank-with-props' => 'return $str;',
+            'blank-with-props' => 'return $str.(isset($end) ? " ".$end : "");',
             'blank-with-propsProps' => '&str=name parameter;text;end snippet',
+
+            'inside' => 'return "blank";',
+            'insideWithProps' => 'return "blank-with-props? &str=`line from snippet`";'
+        );
+
+        $modx->placeholders = array(
+            'test' => 'example content placeholder',
+            'inside' => 'blank',
+            'insideWithProps' => 'blank-with-props? &str=`line from snippet`'
         );
         return $modx;
     }
