@@ -98,27 +98,53 @@ class evalSnippetsTest extends ModxAbstract {
     public function testSnippetInConfigSuccess()
     {
         $filters = $this->method->invoke($this->modx, '[[[(inside)]]]');
-        $this->assertEquals(']', $filters); //@TODO
+        $this->assertEquals(']', $filters);
     }
 
     public function testSnippetInConfigWithParamsSuccess()
     {
         $filters = $this->method->invoke($this->modx, '[[[(insideWithProps)]]]');
-        $this->assertEquals(']', $filters); //@TODO
+        $this->assertEquals(']', $filters);
+    }
+
+    public function testSnippetInConfigSpaceSuccess()
+    {
+        $filters = $this->method->invoke($this->modx, '[[ [(inside)] ]]');
+        $this->assertEquals('', $filters);
+    }
+
+    public function testSnippetInConfigWithParamsSpaceSuccess()
+    {
+        $filters = $this->method->invoke($this->modx, '[[ [(insideWithProps)] ]]');
+        $this->assertEquals('', $filters);
     }
 
     public function testSnippetInPlaceholderSuccess()
     {
         $filters = $this->method->invoke($this->modx, '[[[+inside+]]]');
         $this->assertNotEquals('Test content', $filters);
-        $this->assertEquals(']', $filters); //@TODO
+        $this->assertEquals(']', $filters);
     }
 
     public function testSnippetInPlaceholderWithParamsSuccess()
     {
         $filters = $this->method->invoke($this->modx, '[[[+insideWithProps+]]]');
         $this->assertNotEquals('line from snippet', $filters);
-        $this->assertEquals(']', $filters); //@TODO
+        $this->assertEquals(']', $filters);
+    }
+
+    public function testSnippetInPlaceholderSpaceSuccess()
+    {
+        $filters = $this->method->invoke($this->modx, '[[ [+inside+] ]]');
+        $this->assertNotEquals('Test content', $filters);
+        $this->assertEquals('', $filters);
+    }
+
+    public function testSnippetInPlaceholderWithParamsSpaceSuccess()
+    {
+        $filters = $this->method->invoke($this->modx, '[[ [+insideWithProps+] ]]');
+        $this->assertNotEquals('line from snippet', $filters);
+        $this->assertEquals('', $filters);
     }
 }
 
