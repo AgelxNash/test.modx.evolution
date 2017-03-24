@@ -2,6 +2,12 @@
 
 use ModxEvo\Tests\ModxAbstract;
 
+/**
+ * Class evalSnippetsTest
+ *
+ * @see DocumentParser::evalSnippets
+ * @package ModxEvo\Tests\DocumentParser
+ */
 class evalSnippetsTest extends ModxAbstract {
     /**
      * @var \ReflectionClass

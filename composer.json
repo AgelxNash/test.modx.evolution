@@ -5,15 +5,15 @@
       "type": "package",
       "package": {
         "name": "dmi3yy/modx.evo.custom",
-        "version": "dev-parser",
+        "version": "1.1.7.16",
         "dist": {
-          "url": "https://github.com/dmi3yy/modx.evo.custom/archive/parser.zip",
+          "url": "https://github.com/dmi3yy/modx.evo.custom/archive/c3d35dcdbfb3c203c90181599a80164b046d924e.zip",
           "type": "zip"
         },
         "source": {
           "url": "git@github.com:dmi3yy/modx.evo.custom.git",
           "type": "git",
-          "reference":"parser"
+          "reference":"c3d35dcdbfb3c203c90181599a80164b046d924e"
         },
         "autoload": {
           "classmap": [
@@ -25,7 +25,7 @@
   ],
   "require-dev": {
     "phpunit/phpunit": "^5.7",
-    "dmi3yy/modx.evo.custom": "dev-parser"
+    "dmi3yy/modx.evo.custom": "1.1.7.16"
   },
   "autoload-dev": {
     "psr-4": {

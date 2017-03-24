@@ -2,6 +2,12 @@
 
 use ModxEvo\Tests\ModxAbstract;
 
+/**
+ * Class getTagsFromContentTest
+ *
+ * @see DocumentParser::getTagsFromContent
+ * @package ModxEvo\Tests\DocumentParser
+ */
 class getTagsFromContentTest extends ModxAbstract {
     /**
      * @var \ReflectionClass

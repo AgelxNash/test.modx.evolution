@@ -9,6 +9,8 @@ abstract class ModxAbstract extends TestAbstract
 
     public function setUp()
     {
+        error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+
         try {
             $this->modx = $this->mockMODX();
             $this->assertTrue($this->modx instanceof \DocumentParser);
@@ -119,6 +121,23 @@ abstract class ModxAbstract extends TestAbstract
             )
         );
         $modx->documentIdentifier = 1;
+
+        $modx->aliasListing = array(
+            1 => array('id' => 1, 'alias' => 'index', 'path' => '', 'parent' => 0, 'isfolder' => 0)
+        );
+        $modx->documentListing = array(
+            'index' => 1
+        );
+        $modx->documentMap = array(
+            array('0' => '1')
+        );
+        $modx->contentTypes = array(
+            5 => 'text/xml'
+        );
+
+        $modx->pluginCache = array();
+
+        $modx->pluginEvent = array();
 
         $modx->config = array_merge(array(
             'manager_language' => 'russian-UTF8',

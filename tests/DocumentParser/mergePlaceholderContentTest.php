@@ -2,6 +2,12 @@
 
 use ModxEvo\Tests\ModxAbstract;
 
+/**
+ * Class mergePlaceholderContentTest
+ *
+ * @see DocumentParser::mergePlaceholderContent
+ * @package ModxEvo\Tests\DocumentParser
+ */
 class mergePlaceholderContentTest extends ModxAbstract {
     /**
      * @var \ReflectionClass

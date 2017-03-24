@@ -2,6 +2,12 @@
 
 use ModxEvo\Tests\ModxAbstract;
 
+/**
+ * Class mergeChunkContentTest
+ *
+ * @see DocumentParser::mergeChunkContent
+ * @package ModxEvo\Tests\DocumentParser
+ */
 class mergeChunkContentTest extends ModxAbstract {
     /**
      * @var \ReflectionClass
